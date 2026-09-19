@@ -30,11 +30,15 @@ graph.add_node("chat_node", chat_node)
 graph.add_edge(START, "chat_node")
 graph.add_edge("chat_node", END)
 
+CONFIG = {"configurable": {"thread_id": "thread_1"}}
 workflow = graph.compile(checkpointer=checkpointer)
+
 # response = workflow.invoke(
-#     {"messages": [HumanMessage("Tell me about Prabhas")]},
-#     config={"configurable": {"thread_id": "thread_1"}}
+#    {"messages": [HumanMessage("Tell me about Prabhas")]},
+#    config=CONFIG
 # )
+
+# print(workflow.get_state(CONFIG))
 
 # # print(response)
 # for message_chunk , metadata in workflow.stream(
