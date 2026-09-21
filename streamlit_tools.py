@@ -1,5 +1,5 @@
 import streamlit as st
-from langgraph_database_backend import workflow , all_threads
+from langgraph_backend_tools import workflow
 from langchain_core.messages import HumanMessage
 import uuid 
 
@@ -24,22 +24,13 @@ if 'message_history' not in st.session_state:
     st.session_state['message_history'] = []
 
 if 'chat_thread_ids' not in st.session_state:
-    st.session_state['chat_thread_ids']=all_threads()
+    st.session_state['chat_thread_ids']=[]
 
 if 'thread_id' not in st.session_state:
     st.session_state['thread_id']= generate_thread_id()
 
 
-#CONFIG = {'configurable': {'thread_id': st.session_state['thread_id']}}
-
-# to get the data in langsmith based on the thread_id 
-CONFIG = {
-        "configurable": {"thread_id": st.session_state["thread_id"]},
-        "metadata": {
-            "thread_id": st.session_state["thread_id"]
-        },
-        "run_name": "chat_turn",
-    }
+CONFIG = {'configurable': {'thread_id': st.session_state['thread_id']}}
 
 
 #side bar UI creation
