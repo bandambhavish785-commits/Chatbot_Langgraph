@@ -1,6 +1,6 @@
 import streamlit as st
 from langgraph_backend_tools import workflow
-from langchain_core.messages import HumanMessage , AI_Message
+from langchain_core.messages import HumanMessage , AIMessage ,ToolMessage
 import uuid 
 
 thread_ids=[]
@@ -94,7 +94,7 @@ if user_input:
         status_holder = {"box": None}
 
         def ai_only_stream():
-            for message_chunk, metadata in chatbot.stream(
+            for message_chunk, metadata in workflow.stream(
                 {"messages": [HumanMessage(content=user_input)]},
                 config=CONFIG,
                 stream_mode="messages",
